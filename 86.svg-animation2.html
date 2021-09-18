@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>svg-animation</title>
+		<style>
+			.circle {
+				stroke-dasharray: 1194;
+				/* 10px切一刀，最大為圓周長一刀2*3.14*190 */
+				stroke-dashoffset: 0;
+				animation: circle 1s;
+				animation-fill-mode: forwards;
+			}
+			@keyframes circle {
+				from {
+					stroke-dashoffset: 1194;
+				}
+				to {
+					stroke-dashoffset: 0;
+					/* 2388轉另一邊 */
+				}
+			}
+
+			.tick {
+				stroke-dasharray: 350;
+				stroke-dashoffset: 350;
+				animation: tick 0.45s;
+				animation-delay: 1.1s;
+				animation-fill-mode: forwards;
+			}
+			@keyframes tick {
+				from {
+					stroke-dashoffset: 350;
+				}
+				to {
+					stroke-dashoffset: 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<svg width="400" height="400">
+				<circle
+					cx="200"
+					cy="200"
+					r="190"
+					fill="none"
+					stroke="lightgreen"
+					stroke-width="20"
+					class="circle"
+					stroke-linecap="round"
+					transform="rotate(-90 200 200)"
+				/>
+				<polyline
+					fill="none"
+					stroke="lightgreen"
+					stroke-width="24"
+					points="88,214 173,284 304,138 "
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="tick"
+				/>
+				<!-- r給200會被切掉，要少10 -->
+				<!-- stroke-linecap="round"圓頭 -->
+				<!-- stroke-linejoin="round"接點處變圓 -->
+			</svg>
+		</div>
+
+		<script>
+			let circle = document.querySelector('.circle');
+			let tick = document.querySelector('.tick');
+
+			circle.addEventListener('animationend', function () {
+				circle.setAttribute('stroke', 'transparent');
+			});
+		</script>
+	</body>
+</html>
